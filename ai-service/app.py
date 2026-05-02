@@ -1,3 +1,4 @@
+import os 
 from flask import Flask, request, jsonify
 from services.ai_logic import analyze_item
 from services.alert_logic import generate_alerts
@@ -31,4 +32,7 @@ def home():
     return "AI Service Ready 🚀"
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    # Railway akan memberikan port secara otomatis melalui environment variable 'PORT'
+    port = int(os.environ.get("PORT", 5000))
+    # Host '0.0.0.0' hukumnya wajib supaya bisa diakses dari luar
+    app.run(host='0.0.0.0', port=port, debug=True)
