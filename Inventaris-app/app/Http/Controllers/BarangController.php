@@ -6,6 +6,7 @@ use App\Models\Barang;
 use App\Models\BarangStatusLog;
 use App\Services\DashboardSnapshot;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Throwable;
 
@@ -56,7 +57,7 @@ class BarangController extends Controller
 
         BarangStatusLog::create([
             'barang_id' => $barang->id,
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'action' => 'created',
             'new_status' => $barang->status,
             'new_jumlah' => $barang->jumlah,
@@ -113,7 +114,7 @@ class BarangController extends Controller
 
         BarangStatusLog::create([
             'barang_id' => $barang->id,
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'action' => 'updated',
             'old_status' => $oldStatus,
             'new_status' => $barang->status,
