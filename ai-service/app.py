@@ -3,8 +3,10 @@ from flask import Flask, request, jsonify
 from services.ai_logic import analyze_item
 from services.alert_logic import generate_alerts
 from services.chatbot_logic import chatbot_response
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # 🔹 ANALISIS PER ITEM
 @app.route('/analyze', methods=['POST'])
