@@ -158,7 +158,8 @@ class BarangController extends Controller
         ])->get();
 
         try {
-            $response = Http::timeout(5)->post('http://127.0.0.1:5000/chat', [
+            $baseUrl = rtrim(config('services.ai.url'), '/');
+            $response = Http::timeout(10)->post($baseUrl . '/chat', [
                 'message' => $validated['message'],
                 'items' => $items,
             ]);
@@ -168,7 +169,7 @@ class BarangController extends Controller
             ]);
         } catch (Throwable $e) {
             return response()->json([
-                'reply' => 'Maaf, layanan AI sedang tidak tersedia. Pastikan Flask berjalan di port 5000.',
+                'reply' => 'Maaf, layanan AI sedang tidak tersedia. Error: ' . $e->getMessage(),
             ], 503);
         }
     }
@@ -176,7 +177,8 @@ class BarangController extends Controller
     private function analyzeBarang(array $data): array
     {
         try {
-            $response = Http::timeout(3)->post('http://127.0.0.1:5000/analyze', [
+            $baseUrl = rtrim(config('services.ai.url'), '/');
+            $response = Http::timeout(10)->post($baseUrl . '/analyze', [
                 'quantity' => $data['jumlah'],
                 'status' => $data['status'],
                 'days' => 1,

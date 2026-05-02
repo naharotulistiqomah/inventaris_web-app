@@ -29,7 +29,8 @@ class AiController extends Controller
         ];
 
         try {
-            $response = Http::timeout(5)->post('http://127.0.0.1:5000/analyze', $payload);
+            $baseUrl = rtrim(config('services.ai.url'), '/');
+            $response = Http::timeout(10)->post($baseUrl . '/analyze', $payload);
 
             if ($response->failed()) {
                 return back()->withErrors([
@@ -44,7 +45,7 @@ class AiController extends Controller
             ]);
         } catch (Throwable $e) {
             return back()->withErrors([
-                'ai' => 'AI service tidak tersedia. Pastikan Flask berjalan di port 5000.',
+                'ai' => 'AI service tidak tersedia. Error: ' . $e->getMessage(),
             ]);
         }
     }
