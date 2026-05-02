@@ -116,6 +116,10 @@
             background-color: #fee2e2;
             color: #ef4444;
         }
+        .action-btn.ai:hover {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
         /* Badge status */
         .status-badge {
             display: inline-flex;
@@ -285,6 +289,13 @@
                             <td class="px-6 py-4 text-sm text-gray-700">{{ $b->recommendation ?? '-' }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex space-x-2">
+                                    <form action="{{ route('ai.proses') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="barang_id" value="{{ $b->id }}">
+                                        <button type="submit" class="action-btn ai text-green-600 hover:bg-green-50" title="Analisis AI">
+                                            <i class="fas fa-robot"></i>
+                                        </button>
+                                    </form>
                                     <a href="/barang/{{ $b->id }}/edit"
                                        class="action-btn edit text-blue-600 hover:bg-blue-50">
                                         <i class="fas fa-edit"></i>

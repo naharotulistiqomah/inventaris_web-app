@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\AiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,10 @@ Route::get('/api/dashboard-data', [BarangController::class, 'dashboardData'])
 Route::post('/chatbot', [BarangController::class, 'chatbot'])
     ->middleware('auth')
     ->name('chatbot');
+
+Route::post('/proses-ai', [AiController::class, 'cekAi'])
+    ->middleware('auth')
+    ->name('ai.proses');
 
 
 Route::middleware('auth')->group(function () {
